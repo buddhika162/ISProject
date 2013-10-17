@@ -7,21 +7,27 @@ public class Queens {
 	int[][]        currentQueensPositions = null,
 	        newQueensPositions     = null;
 	
-	
+	public void printBord(){
+		for (int iQueen = 0; iQueen < NUM_QUEENS; iQueen++) {
+			System.out.println("Queen "+iQueen+ "x = "+currentQueensPositions[iQueen][0]+" y = "+currentQueensPositions[iQueen][1]);
+		}
+	}
 	
 	
 	public Double generateRandomPositions () {
         boolean done = false;
-
+        currentQueensPositions = new int[NUM_QUEENS][2];
         for (int iQueen = 0; iQueen < NUM_QUEENS; iQueen++) {
             boolean repetitions = true;
-
-            //currentQueensPositions[iQueen] = {};
+            if(iQueen==3){
+            	//return 0.0;
+            }
+             
             while (repetitions) {
                 currentQueensPositions[iQueen][0] = (int) (Math.random() * 8);
                 currentQueensPositions[iQueen][1] = (int) (Math.random() * 8);
-
-                if (!checkRepetitions(currentQueensPositions)) {
+                //System.out.println(repetitions+"Queen "+iQueen+ "x = "+currentQueensPositions[iQueen][0]+" y = "+currentQueensPositions[iQueen][1]);
+                if (!checkRepetitions(currentQueensPositions,iQueen)) {
                     repetitions = false;
                 }
             }
@@ -58,6 +64,7 @@ public class Queens {
 	
 	
 	 public Double generateNeighbor () {
+		 newQueensPositions = new int[NUM_QUEENS][2];
 	        for (int iQueen = 0; iQueen < NUM_QUEENS; iQueen++) {
 	            newQueensPositions[iQueen][0] = currentQueensPositions[iQueen][0];
 	            newQueensPositions[iQueen][1] = currentQueensPositions[iQueen][1];
@@ -75,7 +82,7 @@ public class Queens {
 	            newQueensPositions[changingQueen][0] = (((newQueensPositions[changingQueen][0] + ((int)(Math.random() * 3) - 1)) % 8) + 8) % 8;
 	            newQueensPositions[changingQueen][1] = (((newQueensPositions[changingQueen][1] + ((int)(Math.random() * 3) - 1)) % 8) + 8) % 8;
 
-	            if (!checkRepetitions(newQueensPositions)) {
+	            if (!checkRepetitions(newQueensPositions,NUM_QUEENS-1)) {
 	                repetitions = false;
 	            }
 	            else {
@@ -87,13 +94,16 @@ public class Queens {
 	        return calculateAttacks(newQueensPositions);
 	    }
 
-	    public boolean checkRepetitions (int[][] board) {
-	        int howMany = board.length;
-
+	    public boolean checkRepetitions (int[][] board,int howMany) {
+	        //int howMany = board.length;
+	    	howMany = howMany+1;
+	       // System.out.println("length"+howMany);
 	        for (int iQueen = 0; iQueen < howMany - 1; iQueen++) {
 	            for (int iCheckQueen = iQueen + 1; iCheckQueen < howMany; iCheckQueen++) {
 	                if (board[iQueen][0] == board[iCheckQueen][0] &&
 	                    board[iQueen][1] == board[iCheckQueen][1]) {
+	                	
+	                	//System.out.println("iqueen "+iQueen+" icheck "+iCheckQueen+" x1 "+board[iQueen][0]+" y1 "+board[iQueen][1]+" x2 "+board[iCheckQueen][0]+" y2 "+board[iCheckQueen][0]);
 	                    return true;
 	                }
 	            }

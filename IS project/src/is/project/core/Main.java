@@ -25,17 +25,26 @@ public class Main {
 	
 	
 	public static void main(String[] args) {
+		Main main = new Main();
 		// TODO Auto-generated method stub
-		coolingFactor            = 0.05;
-        stabilizingFactor        = 1.005;
-        freezingTemperature      = 0.0;
-        queens      = new Queens();
+		main.coolingFactor            = 0.05;
+        main.stabilizingFactor        = 1.005;
+        main.freezingTemperature      = 0.0;
+        main.queens      = new Queens();
        // generateNeighbor         = options.generateNeighbor;
         //acceptNeighbor           = options.acceptNeighbor;
 
-        currentSystemEnergy      = queens.generateRandomPositions();
-        currentSystemTemperature = 35.0;
-        currentStabilizer        = 35.0;
+        main.currentSystemEnergy      = queens.generateRandomPositions();
+        main.queens.printBord();
+        main.currentSystemTemperature = 35.0;
+        main.currentStabilizer        = 35.0;
+        boolean check =false;
+        check = main.doSimulationStep();
+        while(!check){
+        	check = main.doSimulationStep();
+        }
+        
+        main.queens.printBord();
 
 	}
 	public boolean probabilityFunction (Double temperature, Double delta) {
@@ -53,7 +62,7 @@ public class Main {
 	    return false;
 	}
 	
-	public boolean doSimulationStep () {
+	public  boolean doSimulationStep () {
 	    if (currentSystemTemperature > freezingTemperature) {
 	        for (int i = 0; i < currentStabilizer; i++) {
 	            Double newEnergy = queens.generateNeighbor(),
@@ -66,6 +75,8 @@ public class Main {
 	        }
 	        currentSystemTemperature = currentSystemTemperature - coolingFactor;
 	        currentStabilizer = currentStabilizer * stabilizingFactor;
+	        
+	        System.out.println("temp " +currentSystemTemperature+" energy "+currentSystemEnergy);
 	        return false;
 	    }
 	    currentSystemTemperature = freezingTemperature;
