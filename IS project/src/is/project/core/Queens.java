@@ -24,8 +24,8 @@ public class Queens {
             }
              
             while (repetitions) {
-                currentQueensPositions[iQueen][0] = (int) (Math.random() * 8);
-                currentQueensPositions[iQueen][1] = (int) (Math.random() * 8);
+                currentQueensPositions[iQueen][0] = (int) (Math.random() * NUM_QUEENS);
+                currentQueensPositions[iQueen][1] = (int) (Math.random() * NUM_QUEENS);
                 //System.out.println(repetitions+"Queen "+iQueen+ "x = "+currentQueensPositions[iQueen][0]+" y = "+currentQueensPositions[iQueen][1]);
                 if (!checkRepetitions(currentQueensPositions,iQueen)) {
                     repetitions = false;
@@ -79,8 +79,8 @@ public class Queens {
 	            int oldX = newQueensPositions[changingQueen][0];
 	            int oldY = newQueensPositions[changingQueen][1];
 
-	            newQueensPositions[changingQueen][0] = (((newQueensPositions[changingQueen][0] + ((int)(Math.random() * 3) - 1)) % 8) + 8) % 8;
-	            newQueensPositions[changingQueen][1] = (((newQueensPositions[changingQueen][1] + ((int)(Math.random() * 3) - 1)) % 8) + 8) % 8;
+	            newQueensPositions[changingQueen][0] = (((newQueensPositions[changingQueen][0] + ((int)(Math.random() * 3) - 1)) % NUM_QUEENS) + NUM_QUEENS) % NUM_QUEENS;
+	            newQueensPositions[changingQueen][1] = (((newQueensPositions[changingQueen][1] + ((int)(Math.random() * 3) - 1)) % NUM_QUEENS) + NUM_QUEENS) % NUM_QUEENS;
 
 	            if (!checkRepetitions(newQueensPositions,NUM_QUEENS-1)) {
 	                repetitions = false;
@@ -123,7 +123,7 @@ public class Queens {
 	        int[] positions = null ;
 
 	        for (int iQueen = 0; iQueen < NUM_QUEENS; iQueen++) {
-	            positions[iQueen] = currentQueensPositions[iQueen][0] + (currentQueensPositions[iQueen][1] * 8);
+	            positions[iQueen] = currentQueensPositions[iQueen][0] + (currentQueensPositions[iQueen][1] * NUM_QUEENS);
 	        }
 
 	        return positions;
