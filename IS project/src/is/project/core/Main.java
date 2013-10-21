@@ -1,5 +1,7 @@
 package is.project.core;
 
+import java.sql.Time;
+
 public class Main {
 
 	/**
@@ -35,15 +37,18 @@ public class Main {
         //acceptNeighbor           = options.acceptNeighbor;
 
         main.currentSystemEnergy      = queens.generateRandomPositions();
+        long starttime = System.currentTimeMillis();
         main.queens.printBord();
-        main.currentSystemTemperature = 35.0;
-        main.currentStabilizer        = 35.0;
+        main.currentSystemTemperature = 50.0;
+        main.currentStabilizer        = 20.0;
         boolean check =false;
         check = main.doSimulationStep();
         while(!check){
         	check = main.doSimulationStep();
         }
-        
+        long endtime = System.currentTimeMillis();
+        System.out.println("used mili secounds = "+(endtime-starttime));
+        System.out.println("temp " +currentSystemTemperature+" energy "+currentSystemEnergy);
         main.queens.printBord();
 
 	}
@@ -76,11 +81,12 @@ public class Main {
 	        currentSystemTemperature = currentSystemTemperature - coolingFactor;
 	        currentStabilizer = currentStabilizer * stabilizingFactor;
 	        
-	        System.out.println("temp " +currentSystemTemperature+" energy "+currentSystemEnergy);
+	        //System.out.println("temp " +currentSystemTemperature+" energy "+currentSystemEnergy);
 	        return false;
 	    }
 	    currentSystemTemperature = freezingTemperature;
-	    return true;
+	    
+        return true;
 	}
 	
 	

@@ -119,16 +119,7 @@ public class Queens {
 	        }
 	    }
 	    
-	    public int[] getCurrentPositions () {
-	        int[] positions = null ;
-
-	        for (int iQueen = 0; iQueen < NUM_QUEENS; iQueen++) {
-	            positions[iQueen] = currentQueensPositions[iQueen][0] + (currentQueensPositions[iQueen][1] * NUM_QUEENS);
-	        }
-
-	        return positions;
-	    }
-	
+	    
 	
 
 }
