@@ -7,21 +7,21 @@ public class Queens {
 	int[][]        currentQueensPositions = null,
 	        newQueensPositions     = null;
 	
+	
+	//printing the chess board
 	public void printBord(){
 		for (int iQueen = 0; iQueen < NUM_QUEENS; iQueen++) {
 			System.out.println("Queen "+iQueen+ "x = "+currentQueensPositions[iQueen][0]+" y = "+currentQueensPositions[iQueen][1]);
 		}
 	}
 	
-	
+	//generate random state on the board
 	public Double generateRandomPositions () {
         boolean done = false;
         currentQueensPositions = new int[NUM_QUEENS][2];
         for (int iQueen = 0; iQueen < NUM_QUEENS; iQueen++) {
             boolean repetitions = true;
-            if(iQueen==3){
-            	//return 0.0;
-            }
+            
              
             while (repetitions) {
                 currentQueensPositions[iQueen][0] = (int) (Math.random() * NUM_QUEENS);
@@ -36,6 +36,8 @@ public class Queens {
         return calculateAttacks(currentQueensPositions);
     }
 	
+	
+	//calculate no of attackes possible
 	public Double calculateAttacks (int[][] board) {
         Double numAttacks = 0.0;
 
@@ -62,7 +64,7 @@ public class Queens {
     }
 	
 	
-	
+	//generate a neighbor
 	 public Double generateNeighbor () {
 		 newQueensPositions = new int[NUM_QUEENS][2];
 	        for (int iQueen = 0; iQueen < NUM_QUEENS; iQueen++) {
@@ -94,17 +96,17 @@ public class Queens {
 	        return calculateAttacks(newQueensPositions);
 	    }
 
+	 	//check if repete position
 	    public boolean checkRepetitions (int[][] board,int howMany) {
-	        //int howMany = board.length;
+	        
 	    	howMany = howMany+1;
-	       // System.out.println("length"+howMany);
+	       
 	        for (int iQueen = 0; iQueen < howMany - 1; iQueen++) {
 	            for (int iCheckQueen = iQueen + 1; iCheckQueen < howMany; iCheckQueen++) {
 	                if (board[iQueen][0] == board[iCheckQueen][0] &&
 	                    board[iQueen][1] == board[iCheckQueen][1]) {
 	                	
-	                	//System.out.println("iqueen "+iQueen+" icheck "+iCheckQueen+" x1 "+board[iQueen][0]+" y1 "+board[iQueen][1]+" x2 "+board[iCheckQueen][0]+" y2 "+board[iCheckQueen][0]);
-	                    return true;
+	                	return true;
 	                }
 	            }
 	        }
@@ -112,6 +114,7 @@ public class Queens {
 	        return false;
 	    }
 
+	    //accepting the neighbor
 	    public void acceptNeighbor () {
 	        for (int iQueen = 0; iQueen < NUM_QUEENS; iQueen++) {
 	            currentQueensPositions[iQueen][0] =newQueensPositions[iQueen][0];

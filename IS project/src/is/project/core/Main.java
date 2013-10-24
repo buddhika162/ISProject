@@ -21,9 +21,7 @@ public class Main {
 	
 
 	static Queens queens = null;
-	    /*    generateNewSolution      = null,
-	        generateNeighbor         = null,
-	        acceptNeighbor           = null;*/
+	   
 	
 	
 	public static void main(String[] args) {
@@ -33,14 +31,14 @@ public class Main {
         main.stabilizingFactor        = 1.005;
         main.freezingTemperature      = 0.0;
         main.queens      = new Queens();
-       // generateNeighbor         = options.generateNeighbor;
-        //acceptNeighbor           = options.acceptNeighbor;
+       
 
         main.currentSystemEnergy      = queens.generateRandomPositions();
-        long starttime = System.currentTimeMillis();
         main.queens.printBord();
-        main.currentSystemTemperature = 50.0;
-        main.currentStabilizer        = 20.0;
+        long starttime = System.currentTimeMillis();
+       
+        main.currentSystemTemperature = 80.0;
+        main.currentStabilizer        = 25.0;
         boolean check =false;
         check = main.doSimulationStep();
         while(!check){
@@ -52,6 +50,9 @@ public class Main {
         main.queens.printBord();
 
 	}
+	
+	
+	//probability function to select the neighbor
 	public boolean probabilityFunction (Double temperature, Double delta) {
 	    if (delta < 0) {
 	        return true;
@@ -67,6 +68,8 @@ public class Main {
 	    return false;
 	}
 	
+	
+	//step to select a good neighbor
 	public  boolean doSimulationStep () {
 	    if (currentSystemTemperature > freezingTemperature) {
 	        for (int i = 0; i < currentStabilizer; i++) {
@@ -76,6 +79,10 @@ public class Main {
 	            if (probabilityFunction(currentSystemTemperature, energyDelta)) {
 	            	queens.acceptNeighbor ();
 	                currentSystemEnergy = newEnergy;
+	            }
+	            // some improvitation to the algo
+	            if(energyDelta<0){
+	            	break;
 	            }
 	        }
 	        currentSystemTemperature = currentSystemTemperature - coolingFactor;
